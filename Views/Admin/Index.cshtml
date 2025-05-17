@@ -1,0 +1,36 @@
+﻿@model List<KlinikWeb.Models.UserRoleViewModel>
+
+<h2>Kullanıcı Rolleri</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Mevcut Rol</th>
+            <th>Rol Ata</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserEmail</td>
+                <td>@user.CurrentRole</td>
+                <td>
+                    <form asp-action="AssignRole" asp-controller="Admin" method="post">
+                        <input type="hidden" name="userId" value="@user.UserId" />
+                        <select name="selectedRole" class="form-control">
+                            @foreach (var role in user.AvailableRoles)
+                            {
+                                <option value="@role">@role</option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm mt-1">Ata</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
